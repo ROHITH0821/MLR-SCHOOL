@@ -1,0 +1,21 @@
+<svg width="240" height="200" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular Academic Seal -->
+  <g transform="translate(120, 60)">
+    <circle r="50" fill="white" stroke="#1E40AF" stroke-width="4"/>
+    <circle r="42" fill="none" stroke="#1E40AF" stroke-width="1" stroke-dasharray="2 2"/>
+    
+    <!-- Stylized M with Cap -->
+    <path d="M-20 15V-15L0 5L20 -15V15" stroke="#1E40AF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-5 -20L0 -25L5 -20M0 -25V-10" stroke="#1E40AF" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Seal Text -->
+    <path id="sealPath" d="M-35,0 A35,35 0 1,1 35,0" fill="none" />
+    <text font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#1E40AF">
+      <textPath href="#sealPath" startOffset="50%" text-anchor="middle">MALLA REDDY SCHOOL</textPath>
+    </text>
+  </g>
+  
+  <!-- School Name Text -->
+  <text x="120" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#1E40AF">MALLA REDDY</text>
+  <text x="120" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#1E40AF">SCHOOL</text>
+</svg>

@@ -1,0 +1,100 @@
+.curriculum-page {
+  overflow-x: hidden;
+}
+
+.steam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.steam-card {
+  text-align: center;
+  padding: 2.5rem;
+}
+
+.steam-icon {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.steam-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.learning-journey {
+  background-color: var(--muted);
+}
+
+.journey-step {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 6rem;
+  margin-bottom: 8rem;
+}
+
+.journey-step:last-child {
+  margin-bottom: 0;
+}
+
+.journey-step.reverse {
+  direction: rtl;
+}
+
+.journey-step.reverse .journey-content {
+  direction: ltr;
+}
+
+.journey-step.reverse .journey-image {
+  direction: ltr;
+}
+
+.step-num {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--primary);
+  opacity: 0.2;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.journey-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.journey-content p {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
+
+.journey-image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 1024px) {
+  .journey-step {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+  
+  .journey-step.reverse {
+    direction: ltr;
+  }
+}
+
+@media (max-width: 640px) {
+  .steam-grid {
+    grid-template-columns: 1fr;
+  }
+}
