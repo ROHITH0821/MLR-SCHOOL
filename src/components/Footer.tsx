@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Mail, Phone, MapPin, Globe, Share2, Info } from 'lucide-react';
 import './Footer.css';
 
@@ -7,9 +7,8 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
-          {/* Brand */}
           <div className="footer-col">
-            <Link to="/" className="footer-logo">
+            <Link href="/" className="footer-logo">
               <img src="/logo.svg" alt="Malla Reddy School" className="logo-img" />
               <span className="logo-text">Malla Reddy School</span>
             </Link>
@@ -17,37 +16,60 @@ const Footer = () => {
               Dedicated to providing excellence in education and shaping the leaders of tomorrow.
             </p>
             <div className="social-links">
-              <a href="#" className="social-link"><Globe size={20} /></a>
-              <a href="#" className="social-link"><Share2 size={20} /></a>
-              <a href="#" className="social-link"><Info size={20} /></a>
+              <a href="#" className="social-link">
+                <Globe size={20} />
+              </a>
+              <a href="#" className="social-link">
+                <Share2 size={20} />
+              </a>
+              <a href="#" className="social-link">
+                <Info size={20} />
+              </a>
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="footer-col">
             <h4 className="footer-title">Quick Links</h4>
             <ul className="footer-links">
-              <li><Link to="/about">About School</Link></li>
-              <li><Link to="/achievers">Achievers Wall</Link></li>
-              <li><Link to="/blog">School News</Link></li>
-              <li><Link to="/gallery">Gallery</Link></li>
-              <li><Link to="/careers">Careers</Link></li>
-              <li><Link to="/admission">Admission</Link></li>
+              <li>
+                <Link href="/about">About School</Link>
+              </li>
+              <li>
+                <Link href="/achievers">Achievers Wall</Link>
+              </li>
+              <li>
+                <Link href="/blog">School News</Link>
+              </li>
+              <li>
+                <Link href="/gallery">Gallery</Link>
+              </li>
+              <li>
+                <Link href="/careers">Careers</Link>
+              </li>
+              <li>
+                <Link href="/admission">Admission</Link>
+              </li>
             </ul>
           </div>
 
-          {/* Academics */}
           <div className="footer-col">
             <h4 className="footer-title">Academics</h4>
             <ul className="footer-links">
-              <li><Link to="/curriculum">Curriculum</Link></li>
-              <li><Link to="/labs">Laboratories</Link></li>
-              <li><Link to="/utility">Disclosure</Link></li>
-              <li><Link to="/contact">Contact Us</Link></li>
+              <li>
+                <Link href="/curriculum">Curriculum</Link>
+              </li>
+              <li>
+                <Link href="/labs">Laboratories</Link>
+              </li>
+              <li>
+                <Link href="/utility">Disclosure</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact Us</Link>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div className="footer-col">
             <h4 className="footer-title">Contact Us</h4>
             <div className="contact-info">

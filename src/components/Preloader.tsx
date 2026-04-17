@@ -1,4 +1,7 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Preloader.css';
 
@@ -11,17 +14,14 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Show logo after 6.5 seconds
     const logoTimer = setTimeout(() => {
       setShowLogo(true);
-    }, 6500);
+    }, 2000);
 
-    // Start fading out after 8.5 seconds
     const fadeTimer = setTimeout(() => {
       setIsVisible(false);
-      // Wait for fade animation to complete before notifying parent
-      setTimeout(onLoadingComplete, 1000);
-    }, 8500);
+      setTimeout(onLoadingComplete, 700);
+    }, 3200);
 
     return () => {
       clearTimeout(logoTimer);
@@ -32,46 +32,54 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div 
+        <motion.div
           className="preloader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{ duration: 0.65, ease: 'easeInOut' }}
         >
-          {/* Sketch Background */}
-          <motion.div 
+          <motion.div
             className="preloader-sketch"
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
+            transition={{ duration: 1, ease: 'easeOut' }}
           >
-            <img 
-              src="/images/school_sketch_preloader.png" 
-              alt="School Sketch" 
+            <Image
+              src="/images/school_sketch_preloader.png"
+              alt="School Sketch"
               className="sketch-image"
+              fill
+              priority
+              sizes="100vw"
             />
           </motion.div>
 
-          {/* Logo Overlay */}
           <AnimatePresence>
             {showLogo && (
-              <motion.div 
+              <motion.div
                 className="preloader-logo-container"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, ease: "backOut" }}
+                transition={{ duration: 0.8, ease: 'backOut' }}
               >
-                <img src="/logo.svg" alt="School Logo" className="preloader-logo" />
+                <Image
+                  src="/logo.svg"
+                  alt="School Logo"
+                  className="preloader-logo"
+                  width={180}
+                  height={180}
+                  priority
+                  unoptimized
+                />
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Progress Indicator (Optional but adds premium feel) */}
-          <motion.div 
+          <motion.div
             className="preloader-bar"
             initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 8.5, ease: "linear" }}
+            animate={{ width: '100%' }}
+            transition={{ duration: 3.2, ease: 'linear' }}
           />
         </motion.div>
       )}
