@@ -49,6 +49,98 @@ const Curriculum = () => {
         </div>
       </section>
 
+      <section className="learning-journey section">
+        <div className="container">
+          {/* Pre-Primary */}
+          <div className="journey-step">
+            <div className="journey-content">
+              <span className="step-num">01</span>
+              <h2>Pre-Primary <span className="text-primary">(Nursery, PP1, PP2)</span></h2>
+              <p>
+                Laying a strong foundation for young learners with a curriculum designed for 
+                holistic development. We focus on cognitive, motor, social, and emotional skills 
+                through engaging, age-appropriate activities.
+              </p>
+              <ul className="curriculum-highlights">
+                <li>Montessori & Playway Methods</li>
+                <li>Language & Numeracy Readiness</li>
+                <li>Creative Exploration</li>
+              </ul>
+            </div>
+            <div className="journey-image">
+              <OptimizedImage 
+                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200" 
+                alt="Pre-Primary children learning through play" 
+                className="rounded-image shadow-image hover-zoom"
+                aspectRatio="16/9"
+              />
+            </div>
+          </div>
+
+          {/* Primary */}
+          <div className="journey-step reverse">
+            <div className="journey-content">
+              <span className="step-num">02</span>
+              <h2>Primary <span className="text-secondary">(Grade I – V)</span></h2>
+              <p>
+                Dedicated to building a solid foundation in core subjects while developing 
+                problem-solving and critical thinking. We integrate arts and physical education 
+                to ensure a well-rounded academic experience.
+              </p>
+              <ul className="curriculum-highlights">
+                <li>Core Subjects: English, Math, Science, Social</li>
+                <li>Regional Languages: Telugu & Hindi</li>
+                <li>Skill-based Knowledge Acquisition</li>
+              </ul>
+            </div>
+            <div className="journey-image">
+              <OptimizedImage 
+                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200" 
+                alt="Primary students in a modern focused classroom" 
+                className="rounded-image shadow-image hover-zoom"
+                aspectRatio="16/9"
+              />
+            </div>
+          </div>
+
+          {/* Secondary */}
+          <div className="journey-step">
+            <div className="journey-content">
+              <span className="step-num">03</span>
+              <h2>Secondary <span className="text-accent">(Grade VI – X)</span></h2>
+              <p>
+                A challenging and rigorous curriculum designed to equip students with academic 
+                knowledge and practical skills. We focus on preparing students for higher 
+                education while promoting leadership and teamwork.
+              </p>
+              <ul className="curriculum-highlights">
+                <li>Advanced STEM Integration</li>
+                <li>Leadership & Community Service</li>
+                <li>Career Readiness Foundations</li>
+              </ul>
+            </div>
+            <div className="journey-image">
+              <OptimizedImage 
+                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200" 
+                alt="Secondary students collaborating in school" 
+                className="rounded-image shadow-image hover-zoom"
+                aspectRatio="16/9"
+              />
+            </div>
+          </div>
+
+          {/* Special Support */}
+          <div className="support-notice card" style={{ marginTop: '4rem', padding: '3rem', textAlign: 'center', background: 'var(--page-bg)' }}>
+            <h3>Inclusive Learning Support</h3>
+            <p style={{ maxWidth: '40rem', margin: '1rem auto' }}>
+              We also offer <strong>Special Education</strong>, <strong>Enrichment Classes</strong>, 
+              and <strong>Remedial Classes</strong> to ensure every student receives the resources 
+              they need to succeed.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="steam-subjects section">
         <div className="container">
           <div className="section-header text-center">
@@ -89,98 +181,6 @@ const Curriculum = () => {
                 <p style={{ color: 'var(--muted-foreground)', lineHeight: '1.6' }}>{subject.desc}</p>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="learning-journey section">
-        <div className="container">
-          {/* Pre-Primary */}
-          <div className="journey-step">
-            <div className="journey-content">
-              <span className="step-num">01</span>
-              <h2>Pre-Primary <span className="text-primary">(Nursery, PP1, PP2)</span></h2>
-              <p>
-                Laying a strong foundation for young learners with a curriculum designed for 
-                holistic development. We focus on cognitive, motor, social, and emotional skills 
-                through engaging, age-appropriate activities.
-              </p>
-              <ul className="curriculum-highlights">
-                <li>Montessori & Playway Methods</li>
-                <li>Language & Numeracy Readiness</li>
-                <li>Creative Exploration</li>
-              </ul>
-            </div>
-            <div className="journey-image">
-              <OptimizedImage 
-                src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800" 
-                alt="Pre-Primary students engaged in creative play" 
-                className="rounded-image shadow-image hover-zoom"
-                aspectRatio="16/9"
-              />
-            </div>
-          </div>
-
-          {/* Primary */}
-          <div className="journey-step reverse">
-            <div className="journey-content">
-              <span className="step-num">02</span>
-              <h2>Primary <span className="text-secondary">(Grade I – V)</span></h2>
-              <p>
-                Dedicated to building a solid foundation in core subjects while developing 
-                problem-solving and critical thinking. We integrate arts and physical education 
-                to ensure a well-rounded academic experience.
-              </p>
-              <ul className="curriculum-highlights">
-                <li>Core Subjects: English, Math, Science, Social</li>
-                <li>Regional Languages: Telugu & Hindi</li>
-                <li>Skill-based Knowledge Acquisition</li>
-              </ul>
-            </div>
-            <div className="journey-image">
-              <OptimizedImage 
-                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800" 
-                alt="Primary students in an active classroom environment" 
-                className="rounded-image shadow-image hover-zoom"
-                aspectRatio="16/9"
-              />
-            </div>
-          </div>
-
-          {/* Secondary */}
-          <div className="journey-step">
-            <div className="journey-content">
-              <span className="step-num">03</span>
-              <h2>Secondary <span className="text-accent">(Grade VI – X)</span></h2>
-              <p>
-                A challenging and rigorous curriculum designed to equip students with academic 
-                knowledge and practical skills. We focus on preparing students for higher 
-                education while promoting leadership and teamwork.
-              </p>
-              <ul className="curriculum-highlights">
-                <li>Advanced STEM Integration</li>
-                <li>Leadership & Community Service</li>
-                <li>Career Readiness Foundations</li>
-              </ul>
-            </div>
-            <div className="journey-image">
-              <OptimizedImage 
-                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800" 
-                alt="Secondary students in a vibrant school setting" 
-                className="rounded-image shadow-image hover-zoom"
-                aspectRatio="16/9"
-              />
-            </div>
-          </div>
-
-          {/* Special Support */}
-          <div className="support-notice card" style={{ marginTop: '4rem', padding: '3rem', textAlign: 'center', background: 'var(--page-bg)' }}>
-            <h3>Inclusive Learning Support</h3>
-            <p style={{ maxWidth: '40rem', margin: '1rem auto' }}>
-              We also offer <strong>Special Education</strong>, <strong>Enrichment Classes</strong>, 
-              and <strong>Remedial Classes</strong> to ensure every student receives the resources 
-              they need to succeed.
-            </p>
           </div>
         </div>
       </section>
