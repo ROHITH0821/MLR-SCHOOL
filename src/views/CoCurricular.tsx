@@ -47,7 +47,7 @@ const ACTIVITIES: Activity[] = [
     title: 'Carroms',
     category: 'Indoor',
     description: 'Strategic indoor game that blends skill, concentration, and fine motor skills development.',
-    image: 'https://images.unsplash.com/photo-1611891487122-207579d67d98?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1601333144130-8cbb312386b6?q=80&w=800'
   },
   {
     id: 'chess',
