@@ -8,7 +8,7 @@ import './Home.css';
 const Utility = () => {
   return (
     <div className="utility-page">
-      <section className="page-header" style={{ background: 'var(--c-citrus)', padding: '6rem 0 4rem', textAlign: 'center' }}>
+      <section className="page-header" style={{ background: 'var(--page-bg)', padding: '6rem 0 4rem', textAlign: 'center' }}>
         <div className="container">
           <motion.h1 
             initial={{ opacity: 0, scale: 0.8 }}
@@ -22,14 +22,14 @@ const Utility = () => {
       </section>
 
       {/* Mandatory Public Disclosure (CBSE) */}
-      <section id="disclosure" className="section" style={{ background: 'white' }}>
+      <section id="disclosure" className="section" style={{ background: 'var(--page-bg)' }}>
         <div className="container">
           <div className="section-header">
             <h2 className="section-title-spark" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <FileText /> Mandatory Public Disclosure
             </h2>
           </div>
-          <div className="disclosure-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
+          <div className="disclosure-grid">
             {[
               'Extension of Affiliation',
               'Society Incorporation Certificate',
@@ -56,7 +56,7 @@ const Utility = () => {
       </section>
 
       {/* Transportation Section */}
-      <section id="transport" className="section" style={{ background: 'var(--c-mint)' }}>
+      <section id="transport" className="section" style={{ background: 'var(--page-bg)' }}>
         <div className="container">
           <div className="contact-grid contact-grid-labs">
             <div>

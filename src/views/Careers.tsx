@@ -6,15 +6,15 @@ import { Briefcase, MapPin, Clock } from 'lucide-react';
 import './Home.css';
 
 const Careers = () => {
-  const jobs = [
-    { title: 'Senior Mathematics Teacher', type: 'Full-Time', location: 'On-Campus', exp: '5+ Years' },
-    { title: 'Primary Science Facilitator', type: 'Full-Time', location: 'On-Campus', exp: '2+ Years' },
-    { title: 'Student Counselor', type: 'Part-Time', location: 'On-Campus', exp: '3+ Years' },
+  const jobs: { title: string; type: string; location: string; exp: string }[] = [
+    // { title: 'Senior Mathematics Teacher', type: 'Full-Time', location: 'On-Campus', exp: '5+ Years' },
+    // { title: 'Primary Science Facilitator', type: 'Full-Time', location: 'On-Campus', exp: '2+ Years' },
+    // { title: 'Student Counselor', type: 'Part-Time', location: 'On-Campus', exp: '3+ Years' },
   ];
 
   return (
     <div className="careers-page">
-      <section className="page-header" style={{ background: 'var(--c-lavender)', padding: '6rem 0 4rem', textAlign: 'center' }}>
+      <section className="page-header" style={{ background: 'var(--page-bg)', padding: '6rem 0 4rem', textAlign: 'center' }}>
         <div className="container">
           <motion.h1 
             initial={{ opacity: 0, scale: 0.8 }}
@@ -36,7 +36,7 @@ const Careers = () => {
           <div className="job-listings">
             <h2 className="section-title-spark" style={{ marginBottom: '2rem' }}>Open Positions</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              {jobs.map((job, idx) => (
+              {jobs.length > 0 ? jobs.map((job, idx) => (
                 <div key={idx} className="polaroid-card" style={{ '--rotation': '0deg' } as React.CSSProperties}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>{job.title}</h3>
@@ -49,7 +49,15 @@ const Careers = () => {
                   <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>Experience Required: {job.exp}</p>
                   <button className="btn-secondary squishy-btn" style={{ width: '100%' }}>Apply for this role</button>
                 </div>
-              ))}
+              )) : (
+                <div className="polaroid-card" style={{ '--rotation': '0deg', textAlign: 'center', padding: '3rem 1.5rem' } as React.CSSProperties}>
+                  <Briefcase size={40} style={{ color: 'var(--muted-foreground)', margin: '0 auto 1rem' }} />
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem' }}>No Openings Right Now</h3>
+                  <p style={{ color: 'var(--muted-foreground)', fontSize: '0.95rem', lineHeight: '1.6' }}>
+                    We are not actively hiring for specific roles at the moment, but we are always looking for exceptional talent to join our team. Feel free to submit a general application!
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 

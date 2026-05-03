@@ -95,7 +95,7 @@ const Testimonials = () => {
         </div>
       </section>
 
-      <section className="video-testimonials section" style={{ background: 'var(--c-citrus)' }}>
+      <section className="video-testimonials section" style={{ background: 'var(--page-bg)' }}>
         <div className="container">
           <div className="text-center" style={{ marginBottom: '3rem' }}>
             <h2 className="section-title-spark">Video Testimonials</h2>

@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-.preloader-sketch {
+.preloader-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -24,18 +24,38 @@
   justify-content: center;
 }
 
-.sketch-image {
+.preloader-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Keeps colours; darkens bottom slightly so the logo reads on a busy photo */
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.08) 0%,
+    rgba(15, 23, 42, 0.15) 45%,
+    rgba(15, 23, 42, 0.42) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.preloader-bg-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) contrast(1.1);
-  opacity: 0.8;
-  transition: opacity 0.5s ease;
+  object-position: center center;
+  opacity: 1;
 }
 
-.preloader-sketch .sketch-image {
+/* Full-colour campus / sports photography */
+.preloader-bg-img--photo {
+  filter: saturate(1.05) contrast(1.04);
+}
+
+.preloader-bg .preloader-bg-img {
   position: absolute;
   inset: 0;
+  z-index: 0;
 }
 
 .preloader-logo-container {
@@ -51,15 +71,6 @@
 .preloader-logo {
   width: 180px;
   height: auto;
-}
-
-.preloader-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  z-index: 20;
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,59 @@
+.call-fab {
+  position: fixed;
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  z-index: 1002;
+  height: 48px;
+  padding: 0 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 24px rgba(45, 61, 36, 0.35);
+  text-decoration: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  animation: fab-pulse 2s infinite;
+}
+
+@keyframes fab-pulse {
+  0% { box-shadow: 0 8px 24px rgba(45, 61, 36, 0.35); }
+  50% { box-shadow: 0 8px 32px rgba(45, 61, 36, 0.5); }
+  100% { box-shadow: 0 8px 24px rgba(45, 61, 36, 0.35); }
+}
+
+.call-fab:hover {
+  transform: scale(1.06);
+  background-color: var(--primary-dark);
+  box-shadow: 0 10px 28px rgba(45, 61, 36, 0.35);
+}
+
+.call-fab:active {
+  transform: scale(0.96);
+}
+
+.call-fab-text {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .call-fab {
+    height: 44px;
+    padding: 0 1rem;
+  }
+
+  .call-fab svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .call-fab-text {
+    font-size: 0.85rem;
+  }
+}

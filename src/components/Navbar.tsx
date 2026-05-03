@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -41,32 +41,52 @@ const Navbar = () => {
       dropdown: [
         { name: 'About School', path: '/about' },
         { name: "Principal's Desk", path: '/principal' },
-        { name: 'Management', path: '/management' },
+        { name: 'Management Team', path: '/management-team' },
         { name: 'Vision & Mission', path: '/vision' },
-        { name: 'Careers', path: '/careers' },
       ],
     },
     {
       name: 'Academics',
       path: '#',
       dropdown: [
+        { name: 'IIT Foundation', path: '/iit-foundation' },
         { name: 'Curriculum', path: '/curriculum' },
-        { name: 'Admissions', path: '/admission' },
+        { name: 'Labs', path: '/labs' },
         { name: 'Student Achievers', path: '/achievers' },
+        { name: 'Careers', path: '/careers' },
       ],
     },
-    { name: 'Facilities', path: '/life' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Blog', path: '/blog' },
+    {
+      name: 'Co-Curricular',
+      path: '/co-curricular',
+      dropdown: [
+        { name: 'Dance', path: '/co-curricular#dance' },
+        { name: 'Music', path: '/co-curricular#music' },
+        { name: 'Art & Craft', path: '/co-curricular#art-craft' },
+        { name: 'Indoor Games', path: '/co-curricular#indoor' },
+        { name: 'Outdoor Games', path: '/co-curricular#outdoor' },
+        { name: 'Summer Camps', path: '/co-curricular#summercamps' },
+      ],
+    },
+    { name: 'Gallery', path: '/gallery', galleryPill: true },
+    {
+      name: 'Admissions',
+      path: '#',
+      dropdown: [
+        { name: 'Admission Procedure', path: '/admission' },
+      ],
+    },
     { name: 'Contact', path: '/contact' },
   ];
 
   return (
     <>
-      <header className={`navbar-shell ${scrolled ? 'is-scrolled' : ''}`}>
+      <header
+        className={`navbar-shell ${scrolled ? 'is-scrolled' : ''} ${pathname === '/' ? 'navbar-shell--home' : ''}`}
+      >
         <div className="navbar-panel">
           <div className="navbar-bar">
-            
+
             {/* Left: Logo + Wordmark */}
             <div className="navbar-start">
               <Link
@@ -80,54 +100,64 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* Center: Desktop Links */}
-            <nav className="navbar-desktop" aria-label="Primary">
-              {navLinks.map((link) =>
-                link.dropdown ? (
-                  <div key={link.name} className="navbar-dd">
-                    <div className="navbar-dd-trigger">
+            {/* Trailing: nav links + Apply (flush right, large gap after logo — like reference) */}
+            <div className="navbar-trailing">
+              <nav className="navbar-desktop" aria-label="Primary">
+                {navLinks.map((link) =>
+                  'dropdown' in link && link.dropdown ? (
+                    <div key={link.name} className="navbar-dd">
+                      <div className="navbar-dd-trigger">
+                        {link.name}
+                        <ChevronDown size={14} strokeWidth={2.5} aria-hidden />
+                      </div>
+                      <div className="navbar-dd-menu">
+                        {link.dropdown.map((sub) => {
+                          const subPath = sub.path.split('#')[0];
+                          return (
+                            <Link
+                              key={sub.name}
+                              href={sub.path}
+                              className={`navbar-dd-item ${pathname === subPath ? 'is-active' : ''}`}
+                              onClick={closeMenu}
+                            >
+                              {sub.name}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      key={link.name}
+                      href={link.path}
+                      className={`navbar-desktop-link ${pathname === link.path ? 'is-active' : ''
+                        } ${'galleryPill' in link && link.galleryPill ? 'navbar-desktop-link--gallery' : ''}`}
+                    >
                       {link.name}
-                      <ChevronDown size={14} strokeWidth={2.5} aria-hidden />
-                    </div>
-                    <div className="navbar-dd-menu">
-                      {link.dropdown.map((sub) => (
-                        <Link
-                          key={sub.name}
-                          href={sub.path}
-                          className={`navbar-dd-item ${pathname === sub.path ? 'is-active' : ''}`}
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <Link
-                    key={link.name}
-                    href={link.path}
-                    className={`navbar-desktop-link ${pathname === link.path ? 'is-active' : ''}`}
-                  >
-                    {link.name}
-                  </Link>
-                ),
-              )}
-            </nav>
+                    </Link>
+                  ),
+                )}
+              </nav>
 
-            {/* Right: CTA & Mobile Menu Trigger */}
-            <div className="navbar-end">
-              <Link href="/admission" className="navbar-cta" onClick={closeMenu}>
-                Apply
-              </Link>
-              <button
-                type="button"
-                className="navbar-menu-trigger"
-                aria-expanded={menuOpen}
-                aria-controls="site-nav-menu"
-                aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-                onClick={() => setMenuOpen((o) => !o)}
-              >
-                {menuOpen ? <X size={24} strokeWidth={2} /> : <Menu size={24} strokeWidth={2} />}
-              </button>
+              <div className="navbar-end">
+                <a href="tel:+919123456789" className="navbar-call-btn" onClick={closeMenu}>
+                  <Phone size={16} />
+                  <span>Call Us</span>
+                </a>
+                <Link href="/admission" className="navbar-cta" onClick={closeMenu}>
+                  APPLY NOW
+                </Link>
+                <button
+                  type="button"
+                  className="navbar-menu-trigger"
+                  aria-expanded={menuOpen}
+                  aria-controls="site-nav-menu"
+                  aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                  onClick={() => setMenuOpen((o) => !o)}
+                >
+                  {menuOpen ? <X size={24} strokeWidth={2} /> : <Menu size={24} strokeWidth={2} />}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -140,20 +170,23 @@ const Navbar = () => {
             <nav className="navbar-menu-inner" aria-label="Site pages">
               {navLinks.map((link) => (
                 <div key={link.name} className="navbar-menu-group">
-                  {link.dropdown ? (
+                  {'dropdown' in link && link.dropdown ? (
                     <>
                       <span className="navbar-menu-label">{link.name}</span>
                       <div className="navbar-menu-sub">
-                        {link.dropdown.map((sub) => (
-                          <Link
-                            key={sub.name}
-                            href={sub.path}
-                            className={`navbar-menu-link ${pathname === sub.path ? 'is-active' : ''}`}
-                            onClick={closeMenu}
-                          >
-                            {sub.name}
-                          </Link>
-                        ))}
+                        {link.dropdown.map((sub) => {
+                          const subPath = sub.path.split('#')[0];
+                          return (
+                            <Link
+                              key={sub.name}
+                              href={sub.path}
+                              className={`navbar-menu-link ${pathname === subPath ? 'is-active' : ''}`}
+                              onClick={closeMenu}
+                            >
+                              {sub.name}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </>
                   ) : (
@@ -167,9 +200,15 @@ const Navbar = () => {
                   )}
                 </div>
               ))}
-              <Link href="/admission" className="navbar-menu-cta" onClick={closeMenu}>
-                Apply now
-              </Link>
+              <div className="navbar-menu-ctas" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+                <a href="tel:+919123456789" className="navbar-menu-call" onClick={closeMenu}>
+                  <Phone size={20} />
+                  <span>Call Us</span>
+                </a>
+                <Link href="/admission" className="navbar-menu-cta" onClick={closeMenu}>
+                  APPLY NOW
+                </Link>
+              </div>
             </nav>
           </div>
         </div>

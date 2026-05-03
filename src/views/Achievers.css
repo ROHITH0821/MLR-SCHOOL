@@ -1,0 +1,24 @@
+/* Hall of Fame — page header on light background (not dark hero) */
+.achievers-page .achievers-hero {
+  background: var(--page-bg);
+  text-align: center;
+  padding: clamp(3.5rem, 10vw, 5.5rem) 0 clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.achievers-page .page-header h1.hero-brand-name {
+  color: var(--foreground);
+  text-shadow: none;
+  font-size: clamp(2rem, 6vw, 3.75rem) !important;
+}
+
+.achievers-page .page-header .hero-brand-tagline {
+  color: var(--muted-foreground);
+  text-shadow: none;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.achievers-page .page-header .text-primary {
+  color: var(--primary);
+}

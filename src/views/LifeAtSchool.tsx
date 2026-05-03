@@ -28,7 +28,7 @@ const LifeAtSchool = () => {
     },
     {
       icon: <Music size={32} className="text-secondary" />,
-      image: 'https://images.unsplash.com/photo-1514525253361-b83f85dfd75c?q=80&w=400',
+      image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=400&auto=format&fit=crop',
       title: 'Arts & Culture',
       desc: 'Rich extracurricular programs in music, dance, and fine arts.',
     },
@@ -104,7 +104,7 @@ const LifeAtSchool = () => {
             </div>
             <div className="campus-image">
               <OptimizedImage 
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800" 
+                src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800&auto=format&fit=crop" 
                 alt="Infrastructure" 
                 className="rounded-image shadow-image hover-zoom" 
                 aspectRatio="16/9"

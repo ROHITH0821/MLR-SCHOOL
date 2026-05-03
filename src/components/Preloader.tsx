@@ -39,15 +39,15 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
           transition={{ duration: 0.65, ease: 'easeInOut' }}
         >
           <motion.div
-            className="preloader-sketch"
-            initial={{ opacity: 0, scale: 1.1 }}
+            className="preloader-bg"
+            initial={{ opacity: 0, scale: 1.06 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           >
             <Image
-              src="/images/school_sketch_preloader.png"
-              alt="School Sketch"
-              className="sketch-image"
+              src="/images/intro_sports_day.png"
+              alt=""
+              className="preloader-bg-img preloader-bg-img--photo"
               fill
               priority
               sizes="100vw"
@@ -74,13 +74,6 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadingComplete }) => {
               </motion.div>
             )}
           </AnimatePresence>
-
-          <motion.div
-            className="preloader-bar"
-            initial={{ width: 0 }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 3.2, ease: 'linear' }}
-          />
         </motion.div>
       )}
     </AnimatePresence>

@@ -45,7 +45,7 @@ const Curriculum = () => {
           >
             Academic <span className="text-primary">Curriculum</span>
           </motion.h1>
-          <p>A comprehensive approach to modern education with STEAM at its core.</p>
+          <p>Official NCERT/CBSE Curriculum strictly aligned with NCF and NEP 2020 guidelines.</p>
         </div>
       </section>
 
@@ -95,61 +95,92 @@ const Curriculum = () => {
 
       <section className="learning-journey section">
         <div className="container">
+          {/* Pre-Primary */}
           <div className="journey-step">
             <div className="journey-content">
               <span className="step-num">01</span>
-              <h2>Primary Foundation</h2>
+              <h2>Pre-Primary <span className="text-primary">(Nursery, PP1, PP2)</span></h2>
               <p>
-                Focusing on core literacy, numeracy, and social development. We provide 
-                a nurturing environment where young minds can flourish.
+                Laying a strong foundation for young learners with a curriculum designed for 
+                holistic development. We focus on cognitive, motor, social, and emotional skills 
+                through engaging, age-appropriate activities.
               </p>
+              <ul className="curriculum-highlights">
+                <li>Montessori & Playway Methods</li>
+                <li>Language & Numeracy Readiness</li>
+                <li>Creative Exploration</li>
+              </ul>
             </div>
             <div className="journey-image">
               <OptimizedImage 
-                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600" 
-                alt="Primary Education" 
+                src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=800" 
+                alt="Pre-Primary students engaged in creative play" 
                 className="rounded-image shadow-image hover-zoom"
                 aspectRatio="16/9"
               />
             </div>
           </div>
 
+          {/* Primary */}
           <div className="journey-step reverse">
             <div className="journey-content">
               <span className="step-num">02</span>
-              <h2>Middle School Growth</h2>
+              <h2>Primary <span className="text-secondary">(Grade I – V)</span></h2>
               <p>
-                Encouraging independent thinking and deeper exploration of subjects. 
-                Students begin to specialize and discover their passions.
+                Dedicated to building a solid foundation in core subjects while developing 
+                problem-solving and critical thinking. We integrate arts and physical education 
+                to ensure a well-rounded academic experience.
               </p>
+              <ul className="curriculum-highlights">
+                <li>Core Subjects: English, Math, Science, Social</li>
+                <li>Regional Languages: Telugu & Hindi</li>
+                <li>Skill-based Knowledge Acquisition</li>
+              </ul>
             </div>
             <div className="journey-image">
               <OptimizedImage 
-                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600" 
-                alt="Middle School" 
+                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800" 
+                alt="Primary students in an active classroom environment" 
                 className="rounded-image shadow-image hover-zoom"
                 aspectRatio="16/9"
               />
             </div>
           </div>
 
+          {/* Secondary */}
           <div className="journey-step">
             <div className="journey-content">
               <span className="step-num">03</span>
-              <h2>Secondary Excellence</h2>
+              <h2>Secondary <span className="text-accent">(Grade VI – X)</span></h2>
               <p>
-                Preparing students for higher education and global careers. Our secondary 
-                program emphasizes critical thinking and leadership.
+                A challenging and rigorous curriculum designed to equip students with academic 
+                knowledge and practical skills. We focus on preparing students for higher 
+                education while promoting leadership and teamwork.
               </p>
+              <ul className="curriculum-highlights">
+                <li>Advanced STEM Integration</li>
+                <li>Leadership & Community Service</li>
+                <li>Career Readiness Foundations</li>
+              </ul>
             </div>
             <div className="journey-image">
               <OptimizedImage 
-                src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600" 
-                alt="Secondary Education" 
+                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800" 
+                alt="Secondary students in a vibrant school setting" 
                 className="rounded-image shadow-image hover-zoom"
                 aspectRatio="16/9"
               />
             </div>
+          </div>
+
+          {/* Special Support */}
+          <div className="support-notice card" style={{ marginTop: '4rem', padding: '3rem', textAlign: 'center', background: 'var(--page-bg)' }}>
+            <h3>Inclusive Learning Support</h3>
+            <p style={{ maxWidth: '40rem', margin: '1rem auto' }}>
+              We also offer <strong>Special Education</strong>, <strong>Enrichment Classes</strong>, 
+              and <strong>Remedial Classes</strong> to ensure every student receives the resources 
+              they need to succeed.
+            </p>
           </div>
         </div>
       </section>

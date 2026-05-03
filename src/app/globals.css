@@ -14,8 +14,16 @@
   --background: #ffffff;
   --foreground: #1a2314;
   --muted: #f5f5eb;
+  /* One canvas color for everything below the navbar (sections inherit from main) */
+  --page-bg: #f5f5eb;
   --muted-foreground: #5c6654;
   --border: #e4e4d4;
+
+  /* Primary CTAs — footer olive greens (same family as .footer gradient) */
+  --cta-blue: #1a2314;
+  --cta-blue-hover: #2a3824;
+  --cta-blue-active: #121810;
+  --cta-blue-glow: rgba(26, 35, 20, 0.42);
 
   --font-main: var(--font-sans), system-ui, sans-serif;
   --font-heading: var(--font-serif), Georgia, serif;
@@ -29,8 +37,36 @@
   --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-  /* Shell padding + glass bar (floating navbar) */
-  --nav-height: 4.75rem;
+  /* Space reserved under fixed navbar (logo row + bar padding) */
+  --nav-height: 5.5rem;
+  /* Homepage only: top inset before floating nav card (see Navbar.css .navbar-shell--home) */
+  --nav-home-float-gap: 0;
+
+  /* Wider layout: less empty space on large screens (navbar + .container stay aligned) */
+  --container-max: 1440px;
+  --container-padding-x: clamp(1rem, 5vw, 2.5rem);
+  /* Navbar inner horizontal inset — must match .container for edge alignment on every route */
+  --navbar-pad-x: var(--container-padding-x);
+}
+
+/* Responsive Alignment Helpers */
+@media (max-width: 768px) {
+  .mobile-text-center { text-align: center !important; }
+  .mobile-text-left { text-align: left !important; }
+  .mobile-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+  /* Enforces 2-column layout on mobile while keeping items centered */
+  .mobile-flex-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1.25rem !important;
+  }
+  
+  .mobile-flex-grid > * {
+    flex: 0 0 calc(50% - 0.625rem) !important;
+    min-width: 140px !important;
+  }
 }
 
 /* Image Utilities */
@@ -83,7 +119,7 @@ html {
 
 body {
   font-family: var(--font-main);
-  background-color: var(--background);
+  background-color: var(--page-bg);
   color: var(--foreground);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -94,12 +130,48 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--foreground);
   font-weight: 700;
   letter-spacing: -0.02em;
+  text-wrap: balance; /* Prevents single words on new lines */
+}
+
+h1 { font-size: clamp(2.25rem, 7vw, 4.5rem); }
+h2 { font-size: clamp(1.85rem, 5.5vw, 3.25rem); }
+h3 { font-size: clamp(1.4rem, 4.5vw, 2.25rem); }
+h4 { font-size: clamp(1.2rem, 3.5vw, 1.75rem); }
+
+@media (max-width: 768px) {
+  .section-header, 
+  .section-title, 
+  .section-subtitle {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .section-subtitle {
+    max-width: 100% !important;
+  }
+
+  p {
+    font-size: 1rem; /* Slightly larger for readability on small screens */
+    line-height: 1.6;
+  }
+
+  /* Ensure all links and buttons are easy to tap */
+  a, button, .btn-primary, .btn-secondary {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding-x);
+  padding-right: var(--container-padding-x);
 }
 
 .container-full {
@@ -117,25 +189,49 @@ h1, h2, h3, h4, h5, h6 {
 
 .app-container main {
   flex: 1;
+  background-color: var(--page-bg);
+  /* Keeps page content below the fixed nav on every route */
+  padding-top: calc(var(--nav-height) + 0.85rem + env(safe-area-inset-top, 0px));
+}
+
+/* Home: cream canvas in top/side margins behind floating nav; hero starts below clearance */
+.app-container main .home {
+  margin-top: calc(-1 * (var(--nav-height) + 1.5rem)) !important;
+}
+
+@media (max-width: 1024px) {
+  .app-container main .home {
+    margin-top: calc(-1 * (var(--nav-height) + 1rem)) !important;
+  }
+}
+
+.app-container:has(.home) main {
+  background-color: transparent !important;
 }
 
 .section {
-  padding: 3.5rem 0;
+  padding: clamp(2.75rem, 6vw, 3.5rem) 0;
 }
 
 .btn-primary {
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--cta-blue);
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius);
   font-weight: 500;
   transition: all 0.2s;
   display: inline-block;
   text-align: center;
+  box-shadow: 0 4px 14px var(--cta-blue-glow);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--cta-blue-hover);
+  color: #ffffff;
+}
+
+.btn-primary:active {
+  background-color: var(--cta-blue-active);
 }
 
 .btn-secondary {
@@ -167,10 +263,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Page Header Styles */
 .page-header {
-  background-color: var(--muted);
-  padding: 4rem 0;
+  background-color: var(--page-bg);
+  padding: clamp(3rem, 8vw, 4.5rem) 0;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
 .text-primary { color: var(--primary); }
@@ -181,9 +277,9 @@ h1, h2, h3, h4, h5, h6 {
 .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
 .inline-icon { display: inline-block; vertical-align: middle; margin-left: 0.35rem; }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .section {
-    padding: 3rem 0;
+    padding: clamp(2.25rem, 8vw, 2.75rem) 0;
   }
 }
 
@@ -232,18 +328,36 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   background: white;
   border: 4px solid #000;
-  border-radius: 40% 60% 70% 30% / 50% 50% 50% 50%;
-  padding: 2.5rem;
+  border-radius: 120px;
+  padding: 2.5rem 2rem;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 12px 12px 0px 0px #000;
   word-wrap: break-word;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   display: flex;
   flex-direction: column;
 }
 
+@media (max-width: 480px) {
+  .blob-card {
+    padding: 1.25rem 0.75rem;
+    border-radius: 30px;
+    box-shadow: 6px 6px 0px 0px #000;
+    border-width: 3px;
+  }
+  .blob-card h3 {
+    font-size: 1.15rem !important;
+    margin: 0.5rem 0 !important;
+    line-height: 1.2 !important;
+  }
+  .blob-card p {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+}
+
 .blob-card:hover {
-  border-radius: 60% 40% 30% 70% / 50% 50% 50% 50%;
+  border-radius: 130px;
   transform: translate(-4px, -4px);
   box-shadow: 16px 16px 0px 0px var(--primary);
 }
@@ -257,8 +371,21 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   transition: transform 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .blob-card-icon {
+    width: 45px;
+    height: 45px;
+    border-width: 2.5px;
+    margin-bottom: 0.75rem;
+  }
+  .blob-card-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
 }
 
 .blob-card:hover .blob-card-icon {
@@ -446,6 +573,13 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: 1fr;
 }
 
+@media (min-width: 720px) {
+  .contact-grid-about {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
 @media (min-width: 1024px) {
   .contact-grid-about {
     grid-template-columns: 1fr 1.5fr;
@@ -459,9 +593,3 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@media (max-width: 768px) {
-  .blob-card {
-    border-radius: 30px;
-    padding: 1.5rem;
-  }
-}

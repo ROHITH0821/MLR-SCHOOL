@@ -1,0 +1,261 @@
+.co-curricular-page {
+  background-color: #fcfcfd;
+  color: #0A2463;
+  scroll-behavior: smooth;
+}
+
+.co-curricular-hero {
+  background: radial-gradient(circle at 0% 0%, #0A2463 0%, #03153D 100%);
+  color: white;
+  padding: 10rem 0 8rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Unique Mesh Gradient Accents */
+.co-curricular-hero::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 60%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.15) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 1;
+}
+
+.co-curricular-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.co-curricular-hero h1 {
+  font-size: clamp(3.5rem, 10vw, 6.5rem);
+  font-weight: 950;
+  margin-bottom: 1.5rem;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.co-curricular-hero p {
+  font-size: 1.25rem;
+  opacity: 0.8;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+/* Glassmorphic Tabs */
+.section-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+}
+
+.tab-btn {
+  padding: 0.8rem 2rem;
+  border-radius: 1.5rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.tab-btn.active {
+  background: #ffffff;
+  color: #0A2463;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.activities-section {
+  padding: 8rem 0;
+}
+
+.category-group {
+  margin-bottom: 10rem;
+  scroll-margin-top: 120px;
+}
+
+.category-header {
+  margin-bottom: 4rem;
+  text-align: left;
+  border-left: 8px solid #F5A623;
+  padding-left: 2rem;
+}
+
+.category-header h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 950;
+  margin-bottom: 0.5rem;
+  color: #0A2463;
+  letter-spacing: -0.02em;
+}
+
+/* Perspective Activity Cards */
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 3rem;
+}
+
+.activity-grid.centered-flex {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.activity-grid.centered-flex > * {
+  flex: 0 1 380px;
+}
+
+@media (max-width: 768px) {
+  .activity-grid.centered-flex > * {
+    flex: 1 1 100%;
+  }
+}
+
+.activity-card {
+  background: #ffffff;
+  border: 1px solid rgba(10, 36, 99, 0.08);
+  border-radius: 2.5rem;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-card:hover {
+  transform: translateY(-15px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 
+    30px 30px 60px rgba(10, 36, 99, 0.05),
+    -10px -10px 40px rgba(255, 255, 255, 0.8);
+}
+
+.activity-image-wrapper {
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+
+.activity-image {
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.activity-card:hover .activity-image {
+  transform: scale(1.15) rotate(2deg);
+}
+
+.activity-content {
+  padding: 2.5rem;
+  flex-grow: 1;
+}
+
+.activity-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: rgba(13, 182, 181, 0.1);
+  color: #0DB6B5;
+  border-radius: 1rem;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.activity-card h3 {
+  font-size: 2rem;
+  font-weight: 950;
+  margin-bottom: 1rem;
+  color: #0A2463;
+  line-height: 1.1;
+}
+
+.activity-card p {
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.sport-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px dashed #f1f5f9;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: #0DB6B5;
+}
+
+.stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .activity-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .co-curricular-hero {
+    padding: 6rem 1rem 4rem;
+  }
+}
+
+.year-block {
+  margin-bottom: 5rem;
+}
+
+.year-indicator {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.year-label {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #0DB6B5;
+  background: rgba(13, 182, 181, 0.08);
+  padding: 0.6rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 15px rgba(13, 182, 181, 0.1);
+  border: 1px solid rgba(13, 182, 181, 0.1);
+}
+
+.year-line {
+  height: 2px;
+  flex-grow: 1;
+  background: linear-gradient(to right, rgba(13, 182, 181, 0.3), transparent);
+  border-radius: 2px;
+}

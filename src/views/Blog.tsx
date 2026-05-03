@@ -3,36 +3,42 @@
 import React, { type CSSProperties } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, User, ArrowRight } from 'lucide-react';
+import { fetchDataFromSheet } from '@/lib/sheets';
 import './Home.css';
 
+const NEWS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbL71Gd0aoSu7IjhZAmInxnV1VUvEmTHb6rM7IINr-n2dibyvMqx3CZ4zXjHceVaAHi7v2XRC5HRmE/pub?gid=818070186&single=true&output=csv";
+
+interface BlogPost {
+  title: string;
+  date: string;
+  author: string;
+  img: string;
+  excerpt: string;
+}
+
 const Blog = () => {
-  const posts = [
-    {
-      title: 'Annual Sports Day 2024: A Day of Triumph',
-      date: 'April 10, 2024',
-      author: 'Admin',
-      img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600',
-      excerpt: 'Our students showcased remarkable spirit and athleticism in the annual sports meet...'
-    },
-    {
-      title: 'STEAM Fair: Innovations and Discoveries',
-      date: 'March 25, 2024',
-      author: 'Academic Dept',
-      img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600',
-      excerpt: 'The campus was buzzing with creativity as students presented their scientific models...'
-    },
-    {
-      title: 'Welcome Back: Academic Year 2024-25',
-      date: 'March 15, 2024',
-      author: 'Principal',
-      img: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=600',
-      excerpt: 'Exciting times ahead as we prepare for another year of learning and growth...'
+  const [posts, setPosts] = React.useState<BlogPost[]>([]);
+
+  React.useEffect(() => {
+    async function loadNews() {
+      const data = await fetchDataFromSheet<BlogPost>(NEWS_SHEET_URL, '0', (cols) => ({
+        title: cols[1], // Assuming title is col 1
+        excerpt: cols[2],
+        date: cols[3],
+        img: cols[4],
+        author: 'School Admin'
+      }));
+      if (data && data.length > 0) {
+        const validPosts = data.filter(post => post.title && post.title.trim() !== '');
+        setPosts(validPosts);
+      }
     }
-  ];
+    loadNews();
+  }, []);
 
   return (
     <div className="blog-page">
-      <section className="page-header" style={{ background: 'var(--c-lavender)', padding: '6rem 0 4rem', textAlign: 'center' }}>
+      <section className="page-header" style={{ background: 'var(--page-bg)', padding: '6rem 0 4rem', textAlign: 'center' }}>
         <div className="container">
           <motion.h1 
             initial={{ opacity: 0, scale: 0.8 }}
@@ -60,7 +66,11 @@ const Blog = () => {
               >
                 <div className="polaroid-taped"></div>
                 <div className="polaroid-img-wrapper" style={{ height: '250px' }}>
-                  <img src={post.img} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {post.img && post.img.length > 5 ? (
+                    <img src={post.img} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>No Image</div>
+                  )}
                 </div>
                 <div className="blog-meta" style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'var(--muted-foreground)', marginBottom: '0.5rem' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Calendar size={12} /> {post.date}</span>

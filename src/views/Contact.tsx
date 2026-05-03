@@ -8,7 +8,7 @@ import './Home.css';
 const Contact = () => {
   return (
     <div className="contact-page">
-      <section className="page-header" style={{ background: 'var(--c-sky)', padding: '6rem 0 4rem', textAlign: 'center' }}>
+      <section className="page-header" style={{ background: 'var(--page-bg)', padding: '6rem 0 4rem', textAlign: 'center' }}>
         <div className="container">
           <motion.h1 
             initial={{ opacity: 0, scale: 0.8 }}
@@ -29,11 +29,11 @@ const Contact = () => {
           <div className="contact-grid contact-page-grid">
             <div className="contact-info-panel">
               <h2 className="section-title-spark" style={{ marginBottom: '2rem' }}>Reach Out</h2>
-              <div className="contact-cards" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <div className="contact-cards mobile-flex-grid" style={{ gap: '2rem' }}>
                 {[
                   { icon: <Phone />, title: 'Call Us', detail: '+91 91234 56789', color: 'var(--c-mint)' },
                   { icon: <Mail />, title: 'Email Us', detail: 'contact@mallareddyschool.com', color: 'var(--c-citrus)' },
-                  { icon: <MapPin />, title: 'Visit Us', detail: 'Medchal-Malkajgiri, Hyderabad, Telangana 501401', color: 'var(--c-sky)' },
+                  { icon: <MapPin />, title: 'Lalgadi Malakpet Campus', detail: 'Near Shamirpet, Lalgadi Malakpet, Hyderabad, 500078', color: 'var(--c-sky)' },
                   { icon: <Clock />, title: 'Office Hours', detail: 'Mon - Sat: 8:00 AM - 4:00 PM', color: 'var(--c-lavender)' },
                 ].map((item, i) => (
                   <motion.div 

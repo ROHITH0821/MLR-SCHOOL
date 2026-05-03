@@ -3,9 +3,17 @@
 }
 
 .highlights-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .highlights-grid > * {
+    flex: 0 0 calc(50% - 1.25rem);
+    min-width: 140px;
+  }
 }
 
 .highlight-card {
@@ -52,7 +60,7 @@
 }
 
 .campus-sections {
-  background-color: white;
+  background-color: var(--page-bg);
 }
 
 .campus-row {
@@ -136,8 +144,4 @@
   }
 }
 
-@media (max-width: 640px) {
-  .highlights-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* highlights-grid: auto-fit keeps multi-column layout on larger phones (min 280px cards) */
