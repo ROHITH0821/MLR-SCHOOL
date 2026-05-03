@@ -25,14 +25,14 @@ const ACTIVITIES: Activity[] = [
     title: 'Dance',
     category: 'Arts',
     description: 'Classical and contemporary dance forms to enhance rhythm, poise, and cultural expression.',
-    image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=800'
   },
   {
     id: 'music',
     title: 'Music',
     category: 'Arts',
     description: 'Vocal and instrumental training, including keyboard and guitar, fostering melodic intelligence.',
-    image: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1514119412350-e174d90d280e?q=80&w=800'
   },
   {
     id: 'art-craft',
@@ -47,7 +47,7 @@ const ACTIVITIES: Activity[] = [
     title: 'Carroms',
     category: 'Indoor',
     description: 'Strategic indoor game that blends skill, concentration, and fine motor skills development.',
-    image: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1611891487122-207579d67d98?q=80&w=800'
   },
   {
     id: 'chess',
@@ -76,7 +76,7 @@ const ACTIVITIES: Activity[] = [
     title: 'Tennis',
     category: 'Outdoor',
     description: 'Professional clay and synthetic courts for budding tennis stars.',
-    image: 'https://images.unsplash.com/photo-1595435066311-64531405e354?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1622279457486-62dcc4a4bd13?q=80&w=800'
   },
   {
     id: 'basketball',
