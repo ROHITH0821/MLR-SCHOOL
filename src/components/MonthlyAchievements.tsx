@@ -3,13 +3,13 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, ChevronDown, Award, MapPin, Filter, ArrowRight } from "lucide-react";
-import { ACHIEVEMENTS_DATA, type Achievement, type BranchName } from "@/lib/achievements-data";
+import { type Achievement, type BranchName } from "@/lib/achievements-data";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchDataFromSheet } from "@/lib/sheets";
 
-const ACHIEVEMENTS_SHEET_ID = "1yq3iz43AgYISZKXJEE6P6aMmYme84eo8SXPmsgCt4Bs";
-const ACHIEVEMENTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbL71Gd0aoSu7IjhZAmInxnV1VUvEmTHb6rM7IINr-n2dibyvMqx3CZ4zXjHceVaAHi7v2XRC5HRmE/pub?gid=1510166299&single=true&output=csv";
+const ACHIEVEMENTS_SHEET_ID = "1yq3iz43AgYlSZKXJEE6P6aMmYme84eo8SXPmsgCt4Bs";
+const ACHIEVEMENTS_SHEET_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTbL71Gd0aoSu7IjhZAmInxnV1VUvEmTHb6rM7IINr-n2dibyvMqx3CZ4zXjHceVaAHi7v2XRC5HRmE/pub?gid=0&single=true&output=csv&t=${Date.now()}`;
 
 const MONTHS = ["April", "March", "February", "January", "December", "November", "October", "September", "August", "July", "June"];
 const ACADEMIC_YEARS = ["2025-26", "2024-25"];
@@ -41,27 +41,7 @@ const MonthlyAchievements = () => {
           const validData = sheetData.filter(item => item.title && item.title !== 'Achievement');
           if (validData.length > 0) {
             setAchievements(validData);
-            setIsLoading(false);
-            return;
           }
-        }
-
-        // Fallback to Apps Script if CSV fetch fails or returns empty
-        const response = await fetch("https://script.google.com/macros/s/AKfycbxzGg_9G09RThkXBTfxYnfdP25qbKjX07MAeN-9ABYwglidLfK6RvTizNWbiTuEzgk/exec?type=achievements");
-        const data = await response.json();
-        
-        const mappedData = data.map((item: any, index: number) => ({
-          id: `${item.id || 'ach'}-${index}`,
-          title: item.title || item.Title || 'Achievement',
-          description: item.description || item.Description || '',
-          image: (item.image || item.Image || item.img || '').toString(),
-          month: item.month || item.Month || 'April',
-          academicYear: item.academicyear || item.academicYear || item.Year || '2025-26',
-          branch: (item.branch || item.Branch || 'Lalgadi Malakpet') as BranchName,
-        }));
-
-        if (mappedData.length > 0) {
-          setAchievements(mappedData);
         }
       } catch (err) {
         console.error("Achievements fetch error:", err);

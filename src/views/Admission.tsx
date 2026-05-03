@@ -6,7 +6,7 @@ import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import OptimizedImage from '../components/OptimizedImage';
 import './Admission.css';
 
-const ADMISSION_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzGg_9G09RThkXBTfxYnfdP25qbKjX07MAeN-9ABYwglidLfK6RvTizNWbiTuEzgk/exec";
+const ADMISSION_SCRIPT_URL = process.env.NEXT_PUBLIC_ADMISSION_URL || "";
 
 const Admission = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,11 +26,12 @@ const Admission = () => {
     setStatus('idle');
 
     try {
-      const response = await fetch(ADMISSION_SCRIPT_URL, {
+      // We use a simple request to avoid preflight CORS issues with Apps Script
+      await fetch(ADMISSION_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors', // Apps Script requires no-cors or redirect handling
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(formData),
       });

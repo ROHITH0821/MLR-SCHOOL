@@ -19,14 +19,25 @@ import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, X } from "lucide-r
 import { SCHOOL_EVENTS, type SchoolEvent, type EventCategory } from "@/lib/calendar-data";
 import { fetchDataFromSheet } from "@/lib/sheets";
 
-const CALENDAR_SHEET_ID = "1yq3iz43AgYISZKXJEE6P6aMmYme84eo8SXPmsgCt4Bs";
-const CALENDAR_SHEET_URL = `https://docs.google.com/spreadsheets/d/${CALENDAR_SHEET_ID}/export?format=csv&gid=1328060838`;
+const CALENDAR_SHEET_ID = "1yq3iz43AgYlSZKXJEE6P6aMmYme84eo8SXPmsgCt4Bs";
+const CALENDAR_SHEET_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTbL71Gd0aoSu7IjhZAmInxnV1VUvEmTHb6rM7IINr-n2dibyvMqx3CZ4zXjHceVaAHi7v2XRC5HRmE/pub?gid=1328060838&single=true&output=csv&t=${Date.now()}`;
 
-const CATEGORY_COLORS: Record<EventCategory, string> = {
+const MONTH_MAP: Record<string, string> = {
+  'JAN': '01', 'FEB': '02', 'MAR': '03', 'APR': '04', 'MAY': '05', 'JUN': '06',
+  'JUL': '07', 'AUG': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DEC': '12',
+  'JANUARY': '01', 'FEBRUARY': '02', 'MARCH': '03', 'APRIL': '04', 'JUNE': '06',
+  'JULY': '07', 'AUGUST': '08', 'SEPTEMBER': '09', 'OCTOBER': '10', 'NOVEMBER': '11', 'DECEMBER': '12'
+};
+
+const CATEGORY_COLORS: Record<string, string> = {
   Exam: "#EF4444", 
+  Exams: "#EF4444", 
   Holiday: "#F5A623",
+  Holidays: "#F5A623",
   Event: "#0A2463",
+  Events: "#0A2463",
   Activity: "#0DB6B5",
+  Activities: "#0DB6B5",
 };
 
 const DynamicCalendar = () => {
@@ -36,13 +47,20 @@ const DynamicCalendar = () => {
 
   React.useEffect(() => {
     async function loadEvents() {
-      const data = await fetchDataFromSheet<SchoolEvent>(CALENDAR_SHEET_URL, '0', (cols) => ({
-        id: cols[0],
-        title: cols[1],
-        date: cols[2], // Expecting YYYY-MM-DD
-        category: cols[3] as EventCategory,
-        description: cols[4]
-      }));
+      const data = await fetchDataFromSheet<SchoolEvent>(CALENDAR_SHEET_URL, '0', (cols, index) => {
+        const day = cols[0]?.padStart(2, '0');
+        const monthRaw = cols[1]?.toUpperCase() || 'JAN';
+        const month = MONTH_MAP[monthRaw] || '01';
+        const year = cols[2] || new Date().getFullYear().toString();
+        
+        return {
+          id: `event-${index}`,
+          title: cols[4] || 'School Event',
+          date: `${year}-${month}-${day}`,
+          category: (cols[3] || 'Event') as EventCategory,
+          description: cols[5] || ''
+        };
+      });
       if (data && data.length > 0) {
         setEvents(data);
       }
@@ -111,7 +129,7 @@ const DynamicCalendar = () => {
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.75rem' }}>
-          {(Object.keys(CATEGORY_COLORS) as EventCategory[]).map(cat => (
+          {["Exams", "Holidays", "Events", "Activities"].map(cat => (
             <div key={cat} style={{ 
               display: 'flex', 
               alignItems: 'center', 
@@ -126,7 +144,7 @@ const DynamicCalendar = () => {
               letterSpacing: '0.1em' 
             }}>
               <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: CATEGORY_COLORS[cat] }} />
-              {cat === 'Activity' ? 'Activities' : `${cat}s`}
+              {cat}
             </div>
           ))}
         </div>

@@ -6,7 +6,7 @@ import { fetchDataFromSheet } from '@/lib/sheets';
 import './Home.css';
 import './Achievers.css';
 
-const ACHIEVEMENTS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbL71Gd0aoSu7IjhZAmInxnV1VUvEmTHb6rM7IINr-n2dibyvMqx3CZ4zXjHceVaAHi7v2XRC5HRmE/pub?gid=1510166299&single=true&output=csv";
+const ACHIEVEMENTS_SHEET_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTbL71Gd0aoSu7IjhZAmInxnV1VUvEmTHb6rM7IINr-n2dibyvMqx3CZ4zXjHceVaAHi7v2XRC5HRmE/pub?gid=0&single=true&output=csv&t=${Date.now()}`;
 
 interface Achiever {
   name: string;
@@ -36,15 +36,6 @@ const Achievers = () => {
         if (data && data.length > 0) {
           const validData = data.filter(a => a.name && a.name !== 'Student');
           setAchievers(validData);
-        } else {
-          // Fallback static data if sheet fails
-          setAchievers([
-            { name: 'Sai Kiran', cat: 'Academics', year: '2024', achievement: 'NTSE State Ranker - Top 50', img: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=400' },
-            { name: 'Ananya R.', cat: 'Sports', year: '2024', achievement: 'National U-14 Chess Silver Medalist', img: 'https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=400' },
-            { name: 'Varun T.', cat: 'Academics', year: '2024', achievement: 'IIT-JEE Mains - 99.2 Percentile', img: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=400' },
-            { name: 'Meenakshi S.', cat: 'Arts', year: '2023', achievement: 'State Level Classical Dance Excellence', img: 'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?q=80&w=400' },
-            { name: 'Pranav K.', cat: 'Science', year: '2024', achievement: 'Young Scientist Award - Robotics', img: 'https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?q=80&w=400' },
-          ]);
         }
       } catch (err) {
         console.error("Achievers fetch error:", err);
