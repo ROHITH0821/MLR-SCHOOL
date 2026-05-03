@@ -75,7 +75,7 @@ const Utility = () => {
             </div>
             <div className="polaroid-card">
               <div className="polaroid-taped"></div>
-              <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=600" alt="School Bus" style={{ width: '100%', borderRadius: '15px' }} />
+              <img src="https://images.unsplash.com/photo-1581078426770-6d336e5de7bf?q=80&w=800" alt="School Bus" style={{ width: '100%', borderRadius: '15px' }} />
             </div>
           </div>
         </div>
