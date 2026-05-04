@@ -25,8 +25,8 @@
   --cta-blue-active: #121810;
   --cta-blue-glow: rgba(26, 35, 20, 0.42);
 
-  --font-main: var(--font-sans), system-ui, sans-serif;
-  --font-heading: var(--font-serif), Georgia, serif;
+  --font-main: var(--font-sans), "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-serif), "Charter", "Source Serif 4", Georgia, serif;
 
   --radius: 8px;
   --radius-lg: 12px;
@@ -232,6 +232,21 @@ h4 { font-size: clamp(1.2rem, 3.5vw, 1.75rem); }
 
 .btn-primary:active {
   background-color: var(--cta-blue-active);
+}
+
+.btn-primary.blink-btn {
+  animation: btn-pulse 2s infinite ease-in-out;
+}
+
+@keyframes btn-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 14px var(--cta-blue-glow);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px var(--cta-blue-glow);
+  }
 }
 
 .btn-secondary {

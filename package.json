@@ -11,10 +11,10 @@
   "dependencies": {
     "date-fns": "^4.1.0",
     "framer-motion": "^12.38.0",
-    "lucide-react": "^1.7.0",
-    "next": "^15.2.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "lucide-react": "^1.14.0",
+    "next": "^16.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.0",
@@ -22,9 +22,9 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.39.0",
-    "eslint-config-next": "^15.2.4",
+    "eslint-config-next": "^16.2.4",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.1.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "typescript": "^5.7.0"
   }
 }

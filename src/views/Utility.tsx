@@ -99,7 +99,7 @@ const Utility = () => {
               <motion.div key={i} className="bubble-card">
                 <h4 style={{ fontWeight: 800, fontSize: '1.2rem' }}>{job.role}</h4>
                 <p style={{ color: 'var(--primary)' }}>{job.dept}</p>
-                <button className="squishy-btn btn-primary" style={{ marginTop: '1rem', width: '100%' }}>Apply Now</button>
+                <button className="squishy-btn btn-primary blink-btn" style={{ marginTop: '1rem', width: '100%' }}>Apply Now</button>
               </motion.div>
             ))}
           </div>

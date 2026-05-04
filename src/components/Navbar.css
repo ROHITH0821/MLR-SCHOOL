@@ -409,6 +409,20 @@
   border: none;
   box-shadow: 0 4px 16px rgba(166, 124, 26, 0.3);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: navbar-blink 2s infinite ease-in-out;
+}
+
+@keyframes navbar-blink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(166, 124, 26, 0.3);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(166, 124, 26, 0.5);
+  }
 }
 
 .navbar-cta:hover {
@@ -592,6 +606,18 @@
   background: var(--cta-blue);
   box-shadow: 0 4px 14px var(--cta-blue-glow);
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  animation: navbar-blink-mobile 2s infinite ease-in-out;
+}
+
+@keyframes navbar-blink-mobile {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
 }
 
 .navbar-menu-cta:hover {

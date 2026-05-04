@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, Playfair_Display } from 'next/font/google';
+import { Inter, Source_Serif_4 } from 'next/font/google';
 import ClientRoot from '@/components/ClientRoot';
 import './globals.css';
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ?? 'http://localhost:3000';
 
-const sans = Plus_Jakarta_Sans({
+const sans = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 });
 
-const serif = Playfair_Display({
+const serif = Source_Serif_4({
   subsets: ['latin'],
   variable: '--font-serif',
   display: 'swap',

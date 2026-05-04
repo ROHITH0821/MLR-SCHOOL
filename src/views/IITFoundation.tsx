@@ -239,7 +239,7 @@ const IITFoundation = () => {
             <h2>Join the Excellence Journey</h2>
             <p>Enroll your child today in our IIT Foundation program and build a solid base for future competitive success.</p>
             <div className="cta-buttons">
-              <a href="/admission" className="btn-primary squishy-btn" style={{ backgroundColor: 'var(--accent)', color: 'var(--primary-dark)' }}>Apply Now</a>
+              <a href="/admission" className="btn-primary squishy-btn blink-btn" style={{ backgroundColor: 'var(--accent)', color: 'var(--primary-dark)' }}>Apply Now</a>
               <a href="/contact" className="btn-secondary-outline">Enquire More</a>
             </div>
           </div>

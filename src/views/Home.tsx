@@ -12,7 +12,6 @@ import {
   GraduationCap,
   Images,
 } from 'lucide-react';
-import FacilityLightbox from '@/components/FacilityLightbox';
 import MonthlyAchievements from '@/components/MonthlyAchievements';
 import './Home.css';
 import './Gallery.css';
@@ -27,13 +26,17 @@ const GIDS = {
   FACILITIES: '1248382523' 
 };
 
+// Use the same "Published to web" CSV pattern as Achievements (only gid differs)
+const FACILITIES_SHEET_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTbL71Gd0aoSu7IjhZAmInxnV1VUvEmTHb6rM7IINr-n2dibyvMqx3CZ4zXjHceVaAHi7v2XRC5HRmE/pub?gid=1248382523&single=true&output=csv&t=${Date.now()}`;
+
 /** Homepage hero — provided by user */
 const HERO_IMAGE = '/malla-reddy-hero.jpg';
 const HERO_IMAGE_MOBILE = '/malla-reddy-hero-mobile.png';
 
 
 
-const MotionLink = motion(Link);
+// Framer Motion v12+ deprecates motion(); prefer motion.create()
+const MotionLink = motion.create(Link);
 
 
 
@@ -45,19 +48,16 @@ interface Program {
 }
 
 interface Facility {
-  title: string;
-  img: string;
-  desc: string;
-  gallery: string[];
+  images: string[];
 }
 
 const Home = () => {
-  const [selectedFacility, setSelectedFacility] = useState<{ title: string; images: string[] } | null>(null);
-
   const [galleryPreview, setGalleryPreview] = useState<{src: string, title: string}[]>([]);
   const [galleryMore, setGalleryMore] = useState<{src: string, title: string, cat: string}[]>([]);
   const [programs, setPrograms] = useState<Program[]>([]);
   const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [facilityImages, setFacilityImages] = useState<string[]>([]);
+  const [isFacilitiesLoading, setIsFacilitiesLoading] = useState(true);
 
   useEffect(() => {
     async function loadContent() {
@@ -101,21 +101,34 @@ const Home = () => {
       if (validPrograms.length > 0) setPrograms(validPrograms);
 
       // Facilities
-      const facilitiesData = await fetchDataFromSheet<Facility>(
-        GOOGLE_SHEET_ID,
-        GIDS.FACILITIES,
-        (cols) => {
-          const gallery = cols[4]?.split(/[,|]/).map(s => s.trim()).filter(s => s.startsWith('http') || s.startsWith('/')) || [];
-          return {
-            title: cols[1]?.trim(),
-            img: gallery[0] || '',
-            desc: cols[2]?.trim(),
-            gallery: gallery
-          };
+      setIsFacilitiesLoading(true);
+      try {
+        const facilitiesData = await fetchDataFromSheet<Facility>(
+          FACILITIES_SHEET_URL,
+          '0',
+          (cols) => {
+            // Robust: facilities sheet columns may vary; extract URLs from any cell.
+            const images = cols
+              .flatMap((cell) => (cell ? cell.split(/[,|]/) : []))
+              .map((s) => s.trim())
+              .filter((s) => s.startsWith('http') || s.startsWith('/'))
+              .filter(Boolean);
+
+            return { images };
+          }
+        );
+
+        if (facilitiesData && facilitiesData.length > 0) {
+          const validFacilities = facilitiesData.filter((f) => f.images?.length > 0);
+          const allImages = Array.from(new Set(validFacilities.flatMap((f) => f.images)));
+          setFacilities(validFacilities);
+          setFacilityImages(allImages);
         }
-      );
-      const validFacilities = facilitiesData.filter(f => f.title && f.img && (f.img.startsWith('http') || f.img.startsWith('/')));
-      if (validFacilities.length > 0) setFacilities(validFacilities);
+      } catch (err) {
+        console.error("Facilities fetch error:", err);
+      } finally {
+        setIsFacilitiesLoading(false);
+      }
     }
     loadContent();
   }, []);
@@ -151,7 +164,8 @@ const Home = () => {
             className="hero-slide-img desktop-only"
             fill
             priority
-            sizes="100vw"
+            loading="eager"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
           <Image
             src={HERO_IMAGE_MOBILE}
@@ -159,7 +173,8 @@ const Home = () => {
             className="hero-slide-img mobile-only"
             fill
             priority
-            sizes="100vw"
+            loading="eager"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </motion.div>
         <div
@@ -197,6 +212,7 @@ const Home = () => {
                     src={item.img}
                     alt={item.label}
                     fill
+                    sizes="64px"
                     style={{ objectFit: 'contain', mixBlendMode: 'multiply' }}
                   />
                 </div>
@@ -463,76 +479,77 @@ const Home = () => {
         </div>
       </section>
 
-      <section
-        className="section facilities-section text-center"
-        style={{ backgroundColor: 'var(--page-bg)', padding: '6rem 0' }}
-      >
-        <div className="container">
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="section-title text-center"
-            style={{ marginBottom: '4rem', fontSize: '2.5rem', color: '#333' }}
-          >
-            World-Class Facilities
-          </motion.h2>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px', amount: 0.15 }}
-            variants={staggerContainer}
-            className="programs-grid mobile-flex-grid"
-          >
-            {facilities.map((fac, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeUpVariant}
-                className="notebook-card"
-                style={{ borderColor: '#e2e8f0', cursor: 'pointer' }}
-                onClick={() => setSelectedFacility({ title: fac.title, images: fac.gallery })}
-              >
+      {/* Facilities Section — only show when loaded and has content */}
+      {!isFacilitiesLoading && facilityImages.length > 0 && (
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="section facilities-section text-center"
+          style={{ backgroundColor: 'var(--page-bg)', padding: '6rem 0' }}
+        >
+          <div className="container">
+            <motion.h2
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="section-title text-center"
+              style={{ marginBottom: '4rem', fontSize: '2.5rem', color: '#333' }}
+            >
+              World-Class Facilities
+            </motion.h2>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px', amount: 0.15 }}
+              variants={staggerContainer}
+              className="programs-grid mobile-flex-grid"
+            >
+              <div style={{ width: '100%' }}>
+                <div style={{ marginBottom: '1rem', color: '#64748b', fontWeight: 700 }}>
+                  Showing {facilityImages.length} facility images
+                </div>
                 <div
-                  className="notebook-spiral"
-                  style={{ backgroundImage: 'radial-gradient(#94a3b8 3px, transparent 0)' }}
-                />
-                <Image
-                  src={fac.img}
-                  alt={fac.title}
-                  className="notebook-photo"
-                  width={600}
-                  height={180}
-                  sizes="(max-width: 768px) 100vw, 300px"
-                />
-                <div
-                  className="notebook-inner"
                   style={{
-                    textAlign: 'left',
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    background: '#fff',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                    gap: '1rem',
                   }}
                 >
-                  <h3 className="notebook-title">{fac.title}</h3>
-                  <p className="notebook-desc">{fac.desc}</p>
+                  {facilityImages.map((src, i) => (
+                    <div
+                      key={`${src}-${i}`}
+                      style={{
+                        borderRadius: '18px',
+                        overflow: 'hidden',
+                        background: '#fff',
+                        border: '1px solid #e2e8f0',
+                      }}
+                    >
+                      <img
+                        src={src}
+                        alt={`Facility image ${i + 1}`}
+                        loading="lazy"
+                        onError={() => console.warn('[Facilities] image failed to load:', src)}
+                        style={{
+                          width: '100%',
+                          height: '220px',
+                          objectFit: 'cover',
+                          background: '#f3f4f6',
+                          display: 'block',
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
+      )}
 
 
 
-      {/* Lightbox for Facilities */}
-      <FacilityLightbox 
-        key={selectedFacility?.title}
-        isOpen={!!selectedFacility}
-        onClose={() => setSelectedFacility(null)}
-        images={selectedFacility?.images || []}
-        title={selectedFacility?.title || ''}
-      />
     </div>
   );
 };
